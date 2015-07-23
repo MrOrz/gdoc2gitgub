@@ -33,3 +33,10 @@ build/
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
+
+# Google client secret
+client_secrets.json
+initial_tokens.json
+
+# Iron worker secrets
+iron.json
