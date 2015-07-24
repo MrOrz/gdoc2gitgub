@@ -7,3 +7,4 @@ gem "redis"
 gem "htmlbeautifier"
 gem "therubyracer"
 gem "htmlentities"
+gem "json", '1.8.1' # 1.8.1 to make IronWorker happy
