@@ -1,5 +1,0 @@
-# define the runtime language
-runtime "ruby"
-stack "ruby-2.1"
-# exec is the file that will be executed:
-exec "gdoc2github.rb"

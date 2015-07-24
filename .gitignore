@@ -41,6 +41,7 @@ initial_tokens.json
 
 # Iron worker secrets
 iron.json
+*.worker
 
 # Cloned repository
 repo
