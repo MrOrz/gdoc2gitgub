@@ -1,11 +1,11 @@
 desc "Deploy to heroku, along with json config files"
 task :deploy do
-  has_intial_token = !Dir['initial_tokens.json'].empty?
+  has_initial_token = !Dir['initial_tokens.json'].empty?
   has_client_secret = !Dir['client_secrets.json'].empty?
 
   sh "git checkout -b _deploy"
 
-  sh "git add -f initial_tokens.json" if has_intial_token
+  sh "git add -f initial_tokens.json" if has_initial_token
   sh "git add -f client_secrets.json" if has_client_secret
   sh "git commit -m \"From: #{`git log -n 1 --pretty=format:'%h - %s'`}\""
 
