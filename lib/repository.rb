@@ -24,6 +24,8 @@ class Repository
   end
 
   def self.push
-    `git push #{REPO_URL} #{BRANCH}`
+    Dir.chdir(REPO_LOCATION) do
+      `git push #{REPO_URL} #{BRANCH}`
+    end
   end
 end
