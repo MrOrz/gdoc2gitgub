@@ -51,7 +51,7 @@ TableParser = function(){
     res$ = [];
     for (i$ = 0, len$ = tds.length; i$ < len$; ++i$) {
       td = tds[i$];
-      res$.push(cleanupBlockTags(td));
+      res$.push(cleanupTags(td));
     }
     positionTitle = res$;
     trs.shift();
