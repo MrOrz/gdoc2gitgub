@@ -8,6 +8,7 @@ require 'htmlbeautifier'
 require './utils'
 require './repository'
 require './storage'
+require 'yaml'
 
 # require 'pry'
 
@@ -74,8 +75,12 @@ else
     hashed_email = bubble_digest revision.last_modifying_user.email_address
     author_date = revision.modified_date
 
+    coder = HTMLEntities.new
+    unescaped_html = coder.decode open("https://docs.google.com/feeds/download/documents/export/Export?id=#{FILE_ID}&revision=#{revision.id}&exportFormat=html").read
+    Repository.writeFile 'index.html', HtmlBeautifier.beautify(unescaped_html)
+    Repository.writeFile 'index.yaml', parse_hacktabl(unescaped_html).to_yaml
     Repository.writeFile 'index.txt', open("https://docs.google.com/feeds/download/documents/export/Export?id=#{FILE_ID}&revision=#{revision.id}&exportFormat=txt").read
-    Repository.writeFile 'index.html', HtmlBeautifier.beautify(CGI.unescapeHTML open("https://docs.google.com/feeds/download/documents/export/Export?id=#{FILE_ID}&revision=#{revision.id}&exportFormat=html").read)
+
     Repository.commit hashed_name, hashed_email, author_date
   end
 

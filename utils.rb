@@ -1,5 +1,12 @@
 require 'digest'
 require 'digest/bubblebabble'
+require 'v8'
+require 'json'
+require 'cgi'
+require 'htmlentities'
+
+@ctx = V8::Context.new
+@ctx.eval(File.open('./vendor/hacktabl-parser.js', 'r').read)
 
 def authorization_to_hash(authorization)
   hash = {}
@@ -29,4 +36,12 @@ end
 def bubble_digest str
   bubble = Digest::SHA256.bubblebabble(str).split('-')
   return "#{bubble[2]}-#{bubble[-2]}"
+end
+
+def parse_hacktabl unescaped_html_str
+  @ctx['__result'] = @ctx[:TableParser].call(unescaped_html_str)
+
+  # Pass the data from v8 context to ruby using json string
+  raw_data = JSON.parse @ctx.eval("JSON.stringify(__result)")
+
 end
