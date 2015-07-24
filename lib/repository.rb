@@ -1,4 +1,4 @@
-REPO_URL = "https://#{ENV['GH_TOKEN']}@#{ENV['GF_REF']}"
+REPO_URL = "https://#{ENV['GH_TOKEN']}@#{ENV['GH_REF']}"
 BRANCH = 'gh-pages'
 REPO_LOCATION = './repo'
 
