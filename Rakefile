@@ -2,6 +2,7 @@ desc "Deploy to heroku, along with json config files"
 task :deploy do
   sh "git checkout -b _deploy"
 
+  sh "git add ."
   sh "git add -f initial_tokens.json" unless Dir['initial_tokens.json'].empty?
   sh "git add -f client_secrets.json" unless Dir['client_secrets.json'].empty?
   sh "git commit -m \"From: #{`git log -n 1 --pretty=format:'%h - %s'`}\""
