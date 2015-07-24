@@ -1,5 +1,6 @@
 *.gem
 *.rbc
+*.env
 /.config
 /coverage/
 /InstalledFiles
@@ -40,3 +41,6 @@ initial_tokens.json
 
 # Iron worker secrets
 iron.json
+
+# Cloned repository
+repo

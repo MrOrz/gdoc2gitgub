@@ -1,3 +1,6 @@
+require 'digest'
+require 'digest/bubblebabble'
+
 def authorization_to_hash(authorization)
   hash = {}
   %w'
@@ -21,4 +24,9 @@ end
 def hash_to_auth_options!(hsh)
   hsh['issued_at'] = Time.at hsh['issued_at']
   hsh
+end
+
+def bubble_digest str
+  bubble = Digest::SHA256.bubblebabble(str).split('-')
+  return "#{bubble[2]}-#{bubble[-2]}"
 end
