@@ -32,7 +32,8 @@ if credential.nil?
   # No tokens found, fetch from initial tokens and store it
   credential = JSON.parse(File.read('initial_tokens.json'))
   Storage.google_credential = credential
-  authorization.update! hash_to_auth_options!(credential)
+
+  authorization.update! hash_to_auth_options!(credential) # This mutates `credential' too
 else
   # Get tokens from storage
   authorization.update! hash_to_auth_options!(credential)
@@ -84,9 +85,10 @@ else
     Repository.commit hashed_name, hashed_email, author_date
   end
 
-  # Repository.push
+  puts "Pushing..."
+  Repository.push
+  Storage.latest_revision = new_revs[-1].id
 
-  # Storage.latest_revision = new_revs[-1]['id']
-  # puts ""
+  puts "Done :)"
 end
 
