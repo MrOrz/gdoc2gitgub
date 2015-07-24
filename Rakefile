@@ -12,8 +12,16 @@ task :deploy do
   sh "git push --force heroku _deploy:master"
 
   sh "git checkout -"
-  sh "git checkout _deploy initial_tokens.json" if has_initial_token
-  sh "git checkout _deploy client_secrets.json" if has_client_secret
+
+  if has_initial_token
+    sh "git checkout _deploy initial_tokens.json"
+    sh "git reset HEAD initial_tokens.json"
+  end
+  if has_client_secret
+    sh "git checkout _deploy client_secrets.json"
+    sh "git reset HEAD client_secrets.json"
+  end
+
   sh "git branch -D _deploy"
 end
 
