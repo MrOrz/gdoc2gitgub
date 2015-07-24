@@ -1,4 +1,3 @@
-
 def authorization_to_hash(authorization)
   hash = {}
   %w'

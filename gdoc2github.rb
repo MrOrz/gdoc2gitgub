@@ -1,8 +1,9 @@
 require 'json'
-require './utils'
 require 'google/apis/drive_v2'
 require 'google/api_client/client_secrets'
 require 'google/api_client/auth/installed_app'
+require './utils'
+require './storage'
 
 #
 # 1. Fetch revision from Google Drive
@@ -17,12 +18,15 @@ authorization = client_secrets.to_authorization
 # Populate auth data
 #
 auth_options = {}
-if false
-  # Get tokens from Redis
-  authorization.update! {} #TODO: Some data from redis...
+credential = Storage.google_credential
+if credential.nil?
+  # No tokens found, fetch from initial tokens and store it
+  credential = JSON.parse(File.read('initial_tokens.json'))
+  authorization.update! hash_to_auth_options!(credential)
+  Storage.google_credential = credential
 else
-  # No tokens found, fetch from initial tokens
-  authorization.update! hash_to_auth_options!(JSON.parse(File.read('initial_tokens.json')))
+  # Get tokens from storage
+  authorization.update! hash_to_auth_options!(credential)
 end
 
 # Update access token if needed
@@ -30,9 +34,8 @@ end
 if authorization.expired?
   puts "Access token expired, updating..."
   authorization.fetch_access_token!
-
+  Storage.google_credential = authorization_to_hash(authorization)
   puts "Access token updated."
-  puts authorization_to_hash(authorization) #TODO: save to redis
 end
 
 # Fetch revision Data

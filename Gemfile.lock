@@ -58,6 +58,7 @@ GEM
     multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    redis (3.0.6)
     representable (2.2.3)
       multi_json
       nokogiri
@@ -86,3 +87,4 @@ PLATFORMS
 DEPENDENCIES
   google-api-client (= 0.9.pre1)
   launchy
+  redis
