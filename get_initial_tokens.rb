@@ -1,4 +1,4 @@
-require './utils'
+require './lib/utils'
 require 'json'
 require 'google/apis/drive_v2'
 require 'google/api_client/client_secrets'
