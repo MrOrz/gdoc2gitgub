@@ -31,8 +31,8 @@ credential = Storage.google_credential
 if credential.nil?
   # No tokens found, fetch from initial tokens and store it
   credential = JSON.parse(File.read('initial_tokens.json'))
-  authorization.update! hash_to_auth_options!(credential)
   Storage.google_credential = credential
+  authorization.update! hash_to_auth_options!(credential)
 else
   # Get tokens from storage
   authorization.update! hash_to_auth_options!(credential)
