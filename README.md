@@ -65,7 +65,7 @@ First, use `heroku create` to create a Heroku project.
 With the remote origin `heroku` exists, use the command below to start deploying to Heroku:
 
 ```
-$ bundle exec deploy
+$ bundle exec rake:deploy
 ```
 
 Under the hood this command would commit `initial_tokens.json` and `client_secrets.json` into a new, temporary branch and push the branch to Heroku.
