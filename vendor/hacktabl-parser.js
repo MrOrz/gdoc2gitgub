@@ -97,9 +97,10 @@ TableParser = function(){
   };
 }();
 CommentParser = function(){
-  var REF_MISSING, REF_CONTROVERSIAL, NOTE, SECOND, OTHER, COMMENT_DIV_EXTRACTOR, TYPE_EXTRACTOR, SECOND_MATCHER, SPAN_START, SPAN_END, CLASS, parser;
+  var REF_MISSING, REF_CONTROVERSIAL, QUESTIONABLE, NOTE, SECOND, OTHER, COMMENT_DIV_EXTRACTOR, TYPE_EXTRACTOR, SECOND_MATCHER, SPAN_START, SPAN_END, CLASS, TAGS, P_ELEMS, parser;
   REF_MISSING = 'REF_MISSING';
   REF_CONTROVERSIAL = 'REF_CONTROVERSIAL';
+  QUESTIONABLE = 'QUESTIONABLE';
   NOTE = 'NOTE';
   SECOND = 'SECOND';
   OTHER = 'OTHER';
@@ -109,6 +110,13 @@ CommentParser = function(){
   SPAN_START = /<span class="[^"]+">/gim;
   SPAN_END = /<\/span>/gim;
   CLASS = /\s+class="[^"]+"/gim;
+  TAGS = /<\/?[^>]*>/gim;
+  P_ELEMS = /<p[^>]*>(.*?)<\/p>/gim;
+
+  function cleanupTags(matchedString){
+    return matchedString.replace(P_ELEMS, "$1\n").replace(TAGS, '').trim();
+  }
+
   parser = function(doc){
     var comments, matched, id, rawContent, rawType, ref$, type, content;
     comments = {};
@@ -121,21 +129,22 @@ CommentParser = function(){
       if (content.match(SECOND_MATCHER)) {
         type = SECOND;
       }
-      content = "<p>" + content;
       comments[id] = {
         type: type,
-        content: content
+        content: cleanupTags(content)
       };
     }
     return comments;
     function fn$(){
       switch (rawType) {
-      case "&#35036;&#20805;&#35498;&#26126;":
+      case "補充說明":
         return NOTE;
-      case "&#38656;&#35201;&#20986;&#34389;":
+      case "需要出處":
         return REF_MISSING;
-      case "&#20986;&#34389;&#29229;&#35696;":
+      case "出處爭議":
         return REF_CONTROVERSIAL;
+      case "質疑":
+        return QUESTIONABLE;
       default:
         return OTHER;
       }
@@ -144,6 +153,7 @@ CommentParser = function(){
   parser.types = {
     REF_MISSING: REF_MISSING,
     REF_CONTROVERSIAL: REF_CONTROVERSIAL,
+    QUESTIONABLE: QUESTIONABLE,
     NOTE: NOTE,
     SECOND: SECOND,
     OTHER: OTHER
