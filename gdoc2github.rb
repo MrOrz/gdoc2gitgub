@@ -74,7 +74,7 @@ else
 
     if revision.last_modifying_user.nil?
       hashed_name = 'Anonymous-commenter'
-      hashed_email = ''
+      hashed_email = 'commenter'
     else
       hashed_name = bubble_digest revision.last_modifying_user.display_name
       hashed_email = bubble_digest revision.last_modifying_user.email_address
