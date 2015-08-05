@@ -72,8 +72,13 @@ else
   new_revs.each do |revision|
     puts "Processing revision ##{revision.id}"
 
-    hashed_name = bubble_digest revision.last_modifying_user.display_name
-    hashed_email = bubble_digest revision.last_modifying_user.email_address
+    if revision.last_modifying_user.nil?
+      hashed_name = 'Anonymous-commenter'
+      hashed_email = ''
+    else
+      hashed_name = bubble_digest revision.last_modifying_user.display_name
+      hashed_email = bubble_digest revision.last_modifying_user.email_address
+    end
     author_date = revision.modified_date
 
     coder = HTMLEntities.new
@@ -85,9 +90,11 @@ else
     Repository.commit hashed_name, hashed_email, author_date
   end
 
-  puts "Pushing..."
-  Repository.push
-  Storage.latest_revision = new_revs[-1].id
+  if ENV['DEBUG'].nil?
+    puts "Pushing..."
+    Repository.push
+    Storage.latest_revision = new_revs[-1].id
+  end
 
   puts "Done :)"
 end
