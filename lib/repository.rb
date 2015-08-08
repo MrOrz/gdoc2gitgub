@@ -14,12 +14,12 @@ class Repository
     end
   end
 
-  def self.commit name, email, date
+  def self.commit name, email, date, revision_id
     Dir.chdir(REPO_LOCATION) do
       `git config user.name #{name}`
       `git config user.email #{email}`
       `git add .`
-      `git commit -m "#{name}(#{email}) modified at #{date.to_s}" --date #{date.to_s}`
+      `git commit -m "#{name}(#{email}) created r#{revision_id} at #{date.to_s}" --date #{date.to_s}`
     end
   end
 

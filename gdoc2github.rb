@@ -87,7 +87,7 @@ else
     Repository.writeFile 'index.yaml', parse_hacktabl(unescaped_html).to_yaml
     Repository.writeFile 'index.txt', open("https://docs.google.com/feeds/download/documents/export/Export?id=#{FILE_ID}&revision=#{revision.id}&exportFormat=txt").read
 
-    Repository.commit hashed_name, hashed_email, author_date
+    Repository.commit hashed_name, hashed_email, author_date, revision.id
   end
 
   if ENV['DEBUG'].nil?
