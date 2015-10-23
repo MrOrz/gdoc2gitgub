@@ -45,3 +45,7 @@ def parse_hacktabl unescaped_html_str
   raw_data = JSON.parse @ctx.eval("JSON.stringify(__result)")
 
 end
+
+def parse_hacktabl_with_node data_url
+  return `node index.js '#{data_url}'`
+end

@@ -45,3 +45,6 @@ iron.json
 
 # Cloned repository
 repo
+
+# Node
+node_modules

@@ -85,6 +85,7 @@ else
     unescaped_html = coder.decode open("https://docs.google.com/feeds/download/documents/export/Export?id=#{FILE_ID}&revision=#{revision.id}&exportFormat=html").read
     Repository.writeFile 'index.html', HtmlBeautifier.beautify(unescaped_html)
     Repository.writeFile 'index.yaml', parse_hacktabl(unescaped_html).to_yaml
+    Repository.writeFile 'index.json', parse_hacktabl_with_node("https://docs.google.com/feeds/download/documents/export/Export?id=#{FILE_ID}&revision=#{revision.id}&exportFormat=docx")
     Repository.writeFile 'index.txt', open("https://docs.google.com/feeds/download/documents/export/Export?id=#{FILE_ID}&revision=#{revision.id}&exportFormat=txt").read
 
     Repository.commit hashed_name, hashed_email, author_date, revision.id

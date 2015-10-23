@@ -1,0 +1,25 @@
+{
+  "name": "gdoc2gitgub",
+  "version": "1.0.0",
+  "description": "Puts revision history of a specified google doc into a specified [github repository like this](https://github.com/MrOrz/president2016-history).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrOrz/gdoc2gitgub.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MrOrz/gdoc2gitgub/issues"
+  },
+  "homepage": "https://github.com/MrOrz/gdoc2gitgub#readme",
+  "dependencies": {
+    "hacktabl-parser": "0.0.2"
+  },
+  "engines": {
+    "node": "4.1.1"
+  }
+}
