@@ -4,9 +4,6 @@ require 'google/apis/drive_v2'
 require 'google/api_client/client_secrets'
 require 'google/api_client/auth/installed_app'
 
-require 'openssl'
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-
 client_secrets = Google::APIClient::ClientSecrets.load
 flow = Google::APIClient::InstalledAppFlow.new(
   :client_id => client_secrets.client_id,
