@@ -48,3 +48,6 @@ repo
 
 # Node
 node_modules
+
+# redis
+dump.rdb
